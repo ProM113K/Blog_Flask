@@ -2,7 +2,6 @@ from blogs import app, conn
 from flask import render_template, request, redirect
 
 
-@app.route("/")
 @app.route("/home")
 def home_page():
     sql = "SELECT * FROM post ORDER BY idpost DESC"
