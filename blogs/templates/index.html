@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block favicon %}
+<link rel="apple-touch-icon" sizes="180x180" href="static/favicon_home/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="static/favicon_home/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="static/favicon_home/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+{% endblock %}
+
+{% block title %}
+Home Page
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center post">Post</h2>
+
+    {% if artikel|length < 1 %}
+    <h4 class="text-center post">Belum ada postingan</h4>
+    {% else %}
+
+    {% for blog in artikel %}
+    <div class="card">
+        <div class="card-header text-dark">
+            {{ blog[1] }}
+        </div>
+        <div class="card-body text-dark">
+            <blockquote class="blockquote mb-0">
+                <p class="text-justify">{{ blog[2] }}</p>
+                <footer class="blockquote-footer">Dalam kategori <a href="/home/kategori/{{ blog[3] }}"><cite title="Source Title">{{ blog[3] }}</cite></a>
+                </footer>
+            </blockquote>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
