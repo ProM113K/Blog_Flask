@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 #setting mysql
 mysql = MySQL()
+app.config['SECRET_KEY'] = 'ec9439cfc6c796ae2029594d'
 app.config['MYSQL_DATABASE_USER'] = db_user
 app.config['MYSQL_DATABASE_PASSWORD'] = db_password
 app.config['MYSQL_DATABASE_DB'] = db_name

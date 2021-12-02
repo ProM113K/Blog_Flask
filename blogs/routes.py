@@ -1,5 +1,5 @@
 from blogs import app, conn
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 
 global session, pengguna
 session = False
@@ -18,10 +18,10 @@ def home_page():
     return render_template('index.html', artikel=artikel, session=session, pengguna=pengguna)
 
 
-@app.route('/session')
-def session_check():
-    if session != True:
-        return redirect(url_for('login_page'))
+# @app.route('/session')
+# def session_check():
+#     if session != True:
+#         return redirect(url_for('login_page'))
 
 
 @app.route('/blog', methods=['GET', 'POST'])
@@ -48,7 +48,11 @@ def blog_page():
 
     artikel = cursor_tampil.fetchall()
 
-    return render_template('blog.html', artikel=artikel, session=session, pengguna=pengguna)
+    if session != True:
+        return redirect(url_for('login_page'))
+
+    else:
+        return render_template('blog.html', artikel=artikel, session=session, pengguna=pengguna)
 
 
 @app.route('/blog/hapus/<_id>')
@@ -98,11 +102,23 @@ def login_page():
             global session, pengguna
             session = True
             pengguna = hasil[1]
+
+            flash(f'Anda login sebagai {pengguna}', category='success')
             return redirect(url_for("home_page"))
         else:
             return 'Gagal'
     else:
         return render_template('login.html')
+
+
+@app.route('/user')
+def user_page():
+    if session != True:
+        return redirect(url_for('login_page'))
+
+    else:
+        return render_template('user.html', session=session, pengguna=pengguna)
+
 
 
 @app.route('/logout')
