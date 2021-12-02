@@ -92,14 +92,18 @@ def login_page():
         cursor = conn.cursor()
         cursor.execute(sql, _username)
         hasil = cursor.fetchone()
+        akun_cek = cursor.rowcount
 
-        if _username == hasil[2] and _password == hasil[3]:
+        if akun_cek != 0 and _username == hasil[2] and _password == hasil[3]:
             global session, pengguna
             session = True
             pengguna = hasil[1]
 
             flash(f'Anda login sebagai {pengguna}', category='success')
             return redirect(url_for("home_page"))
+        elif not hasil:
+            flash(f'Akun tidak tersedia', category='danger')
+            return redirect(url_for('login_page'))
         else:
             flash(f'Gagal, tolong periksa kembali', category='danger')
             return redirect(url_for("login_page"))
@@ -179,8 +183,9 @@ def hapus_user(_id, _user):
 
 @app.route('/logout')
 def logout_session():
-    global session
+    global session, pengguna
     session = False
+    pengguna = ''
 
     flash(f'Anda telah keluar', category='warning')
     return redirect(url_for("home_page"))
