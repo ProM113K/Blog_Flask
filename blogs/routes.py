@@ -1,5 +1,9 @@
 from blogs import app, conn
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, url_for
+
+global session, pengguna
+session = False
+pengguna = ''
 
 
 @app.route("/home")
@@ -11,18 +15,13 @@ def home_page():
 
     artikel = cursor.fetchall()
 
-    return render_template('index.html', artikel=artikel)
+    return render_template('index.html', artikel=artikel, session=session, pengguna=pengguna)
 
-@app.route('/home/kategori/<_category>')
-def category(_category):
-    sql = "SELECT * FROM post WHERE keyword=%s"
-    data = _category
-    cursor = conn.cursor()
-    cursor.execute(sql, data)
 
-    artikel_cat = cursor.fetchall()
-
-    return render_template('index.html', artikel=artikel_cat)
+@app.route('/session')
+def session_check():
+    if session != True:
+        return redirect(url_for('login_page'))
 
 
 @app.route('/blog', methods=['GET', 'POST'])
@@ -34,7 +33,7 @@ def blog_page():
     _keyword = request.values.get('keyword')
 
     sql_ubah = "UPDATE post SET judul=%s, isi=%s, keyword=%s WHERE idpost=%s"
-    data_ubah = (_judul,_isi, _keyword, _idTemp)
+    data_ubah = (_judul, _isi, _keyword, _idTemp)
     cursor_ubah = conn.cursor()
     cursor_ubah.execute(sql_ubah, data_ubah)
     conn.commit()
@@ -49,7 +48,7 @@ def blog_page():
 
     artikel = cursor_tampil.fetchall()
 
-    return render_template('blog.html', artikel=artikel)
+    return render_template('blog.html', artikel=artikel, session=session, pengguna=pengguna)
 
 
 @app.route('/blog/hapus/<_id>')
@@ -78,8 +77,36 @@ def tambah_data():
         cursor.execute(sql, data)
         conn.commit()
 
-        print(data)
-
         return redirect('/blog')
     else:
         return render_template('blog.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login_page():
+    _username = request.values.get('username')
+    _password = request.values.get('password')
+
+    if request.method == 'POST':
+        sql = 'SELECT * FROM pengguna WHERE username=%s'
+
+        cursor = conn.cursor()
+        cursor.execute(sql, _username)
+        hasil = cursor.fetchone()
+
+        if _username == hasil[2] and _password == hasil[3]:
+            global session, pengguna
+            session = True
+            pengguna = hasil[1]
+            return redirect(url_for("home_page"))
+        else:
+            return 'Gagal'
+    else:
+        return render_template('login.html')
+
+
+@app.route('/logout')
+def logout_session():
+    global session
+    session = False
+    return redirect(url_for("home_page"))
