@@ -111,8 +111,27 @@ def login_page():
         return render_template('login.html')
 
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register_page():
+    _pengguna = request.values.get('pengguna')
+    _username = request.values.get('username')
+    _password = request.values.get('password')
+
+    sql = "INSERT INTO pengguna VALUES (null, %s, %s, %s)"
+    data = (_pengguna, _username, _password)
+
+    if request.method == 'POST':
+        cursor = conn.cursor()
+        cursor.execute(sql, data)
+        conn.commit()
+
+        global session, pengguna
+        session = True
+        pengguna = _pengguna
+
+        flash(f'Anda login sebagai {pengguna}', category='success')
+        return redirect(url_for('home_page'))
+
     return render_template('register.html')
 
 

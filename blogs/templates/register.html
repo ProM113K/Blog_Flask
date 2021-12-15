@@ -7,8 +7,13 @@ Register: Create new user
 <div class="container">
     <h2 class="text-center post">Register</h2>
 
-    <div class="container border border-primary rounded login-div">
+    <div class="container border border-success rounded login-div">
         <form method="post">
+            <div class="form-group">
+                <label>Nama Pengguna</label>
+                <input class="form-control" name="pengguna" placeholder="Masukkan nama pengguna"
+                       required type="text">
+            </div>
             <div class="form-group">
                 <label>Username</label>
                 <input class="form-control" name="username" placeholder="Masukkan username"
@@ -20,8 +25,7 @@ Register: Create new user
                 <input class="form-control" name="password" placeholder="Password" required type="password">
             </div>
             <div class="form-group">
-                <button class="btn btn-primary" type="submit">Login</button>
-                <button class="btn btn-info float-right" onclick="window.location='/register'">Register</button>
+                <button class="btn btn-info" type="submit">Create Account</button>
             </div>
         </form>
     </div>
