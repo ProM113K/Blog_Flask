@@ -111,6 +111,11 @@ def login_page():
         return render_template('login.html')
 
 
+@app.route('/register')
+def register_page():
+    return render_template('register.html')
+
+
 @app.route('/user', methods=['GET', 'POST'])
 def user_page():
     # Mengubah data
