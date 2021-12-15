@@ -1,5 +1,6 @@
 from flask import Flask
 from flaskext.mysql import MySQL
+
 from blogs.mysql_env import *
 
 app = Flask(__name__)

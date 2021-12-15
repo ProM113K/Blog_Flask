@@ -12,12 +12,12 @@ User Management
     </button>
 
     <!--Modal Tambah-->
-    <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="tambahModal" role="dialog"
+    <div aria-hidden="true" class="modal fade" id="tambahModal" role="dialog"
          tabindex="-1">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-dark" id="exampleModalLabel">Akun baru</h5>
+                    <h5 class="modal-title text-dark">Akun baru</h5>
                     <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -71,12 +71,13 @@ User Management
                         data-toggle="modal"><i class="far fa-trash-alt"></i></button>
 
                 <!-- Modal Hapus-->
-                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="hapusModal-{{ users[0] }}"
+                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
+                     id="hapusModal-{{ users[0] }}"
                      role="dialog" tabindex="-1">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title text-dark" id="exampleModalLabel">Hapus akun</h5>
+                                <h5 class="modal-title text-dark">Hapus akun</h5>
                                 <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -97,12 +98,13 @@ User Management
                 </div>
 
                 <!--Modal Ubah-->
-                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade text-dark" id="ubahModal-{{ users[0] }}"
+                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade text-dark"
+                     id="ubahModal-{{ users[0] }}"
                      role="dialog" tabindex="-1">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Ubah user</h5>
+                                <h5 class="modal-title">Ubah user</h5>
                                 <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -111,22 +113,22 @@ User Management
                                 <form method="post">
                                     <div class="form-group" hidden>
                                         <label class="col-form-label" for="recipient-name">ID:</label>
-                                        <input class="form-control" id="recipient-name" name="temp_id" type="text"
+                                        <input class="form-control" name="temp_id" type="text"
                                                value="{{ users[0] }}">
                                     </div>
                                     <div class="form-group" hidden>
                                         <label class="col-form-label" for="recipient-name">Pengguna:</label>
-                                        <input class="form-control" id="recipient-name" name="temp_user" type="text"
+                                        <input class="form-control" name="temp_user" type="text"
                                                value="{{ users[1] }}">
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label" for="message-text">Username:</label>
-                                        <textarea class="form-control" id="message-text"
-                                                  name="username" required>{{ users[2] }}</textarea>
+                                        <input class="form-control" name="temp_user" type="text"
+                                               value="{{ users[2] }}">
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label" for="message-text">Password:</label>
-                                        <input class="form-control" id="keyword-text" name="password" required
+                                        <input class="form-control" name="password" required
                                                type="password" value="{{ users[3] }}">
                                     </div>
                                     <div class="modal-footer">

@@ -1,5 +1,6 @@
-from blogs import app, conn
 from flask import render_template, request, redirect, url_for, flash
+
+from blogs import app, conn
 
 global session, pengguna
 session = False
